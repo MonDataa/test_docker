@@ -38,7 +38,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ secrets.MonDataa }}
-          password: ${{ secrets.docker_login_token2 }}
+          password: ${{ secrets.docker_pro }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
