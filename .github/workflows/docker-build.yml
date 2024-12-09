@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Étape 1 : Récupérer le dépôt
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Étape 2 : Installer les dépendances
+      # Step 2: Set up Python and install dependencies
       - name: Set up Python and install dependencies
         uses: actions/setup-python@v4
         with:
@@ -26,13 +26,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Étape 3 : Lancer Flake8 pour vérifier le style
+      # Step 3: Run linting
       - name: Run linting
         run: |
           pip install flake8
-          flake8 app.py || true  # Permet de ne pas bloquer le workflow en cas d'erreur
+          flake8 app.py || true
 
-      # Étape 4 : Construire et pousser l'image Docker
+      # Step 4: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -40,6 +40,7 @@ jobs:
           username: ${{ secrets.MonDataa }}
           password: ${{ secrets.docker_pro }}
 
+      # Step 5: Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
